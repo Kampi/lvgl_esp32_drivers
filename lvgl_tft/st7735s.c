@@ -9,6 +9,7 @@
 #include "st7735s.h"
 #include "disp_spi.h"
 #include "driver/gpio.h"
+#include "rom/gpio.h"
 #include "esp_log.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
@@ -107,9 +108,9 @@ void st7735s_init(void)
 
 	//Reset the display
 	gpio_set_level(ST7735S_RST, 0);
-	vTaskDelay(100 / portTICK_RATE_MS);
+	vTaskDelay(100 / portTICK_PERIOD_MS);
 	gpio_set_level(ST7735S_RST, 1);
-	vTaskDelay(100 / portTICK_RATE_MS);
+	vTaskDelay(100 / portTICK_PERIOD_MS);
 #endif
 
 	ESP_LOGI(TAG, "ST7735S initialization.");
@@ -120,7 +121,7 @@ void st7735s_init(void)
 		st7735s_send_cmd(init_cmds[cmd].cmd);
 		st7735s_send_data(init_cmds[cmd].data, init_cmds[cmd].databytes&0x1F);
 		if (init_cmds[cmd].databytes & 0x80) {
-			vTaskDelay(100 / portTICK_RATE_MS);
+			vTaskDelay(100 / portTICK_PERIOD_MS);
 		}
 		cmd++;
 	}

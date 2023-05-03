@@ -8,6 +8,7 @@
 
 #include "disp_spi.h"
 #include "driver/gpio.h"
+#include "rom/gpio.h"
 
 #include <esp_log.h>
 #include "freertos/FreeRTOS.h"
@@ -64,9 +65,9 @@ void pcd8544_init(void){
 
     // Reset the display
     gpio_set_level(PCD8544_RST, 0);
-    vTaskDelay(100 / portTICK_RATE_MS);
+    vTaskDelay(100 / portTICK_PERIOD_MS);
     gpio_set_level(PCD8544_RST, 1);
-    vTaskDelay(100 / portTICK_RATE_MS);
+    vTaskDelay(100 / portTICK_PERIOD_MS);
 
     pcd8544_send_cmd(0x21);     /* activate chip (PD=0), horizontal increment (V=0), enter extended command set (H=1) */
     pcd8544_send_cmd(0x06);     /* temp. control: b10 = 2  */
