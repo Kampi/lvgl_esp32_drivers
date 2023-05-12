@@ -78,9 +78,8 @@ void xpt2046_init(void)
 /**
  * Get the current position and state of the touchpad
  * @param data store the read data here
- * @return false: because no more data to be read
  */
-bool xpt2046_read(lv_indev_drv_t * drv, lv_indev_data_t * data)
+void xpt2046_read(lv_indev_drv_t * drv, lv_indev_data_t * data)
 {
     static int16_t last_x = 0;
     static int16_t last_y = 0;
@@ -94,19 +93,19 @@ bool xpt2046_read(lv_indev_drv_t * drv, lv_indev_data_t * data)
 
         x = xpt2046_cmd(CMD_X_READ);
         y = xpt2046_cmd(CMD_Y_READ);
-        ESP_LOGI(TAG, "P(%d,%d)", x, y);
+        ESP_LOGD(TAG, "P(%d,%d)", x, y);
 
         /*Normalize Data back to 12-bits*/
         x = x >> 4;
         y = y >> 4;
-        ESP_LOGI(TAG, "P_norm(%d,%d)", x, y);
+        ESP_LOGD(TAG, "P_norm(%d,%d)", x, y);
         
         xpt2046_corr(&x, &y);
         xpt2046_avg(&x, &y);
         last_x = x;
         last_y = y;
 
-        ESP_LOGI(TAG, "x = %d, y = %d", x, y);
+        ESP_LOGD(TAG, "x = %d, y = %d", x, y);
     }
     else
     {
@@ -116,8 +115,6 @@ bool xpt2046_read(lv_indev_drv_t * drv, lv_indev_data_t * data)
     data->point.x = x;
     data->point.y = y;
     data->state = valid == false ? LV_INDEV_STATE_REL : LV_INDEV_STATE_PR;
-
-    return false;
 }
 
 /**********************
@@ -187,8 +184,6 @@ static void xpt2046_corr(int16_t * x, int16_t * y)
 #if XPT2046_Y_INV != 0
     (*y) =  LV_VER_RES - (*y);
 #endif
-
-
 }
 
 

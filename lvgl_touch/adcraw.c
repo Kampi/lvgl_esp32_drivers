@@ -295,7 +295,6 @@ static int16_t TouchGetY(void)
 /**
  * Get the current position and state of the touchpad
  * @param data store the read data here
- * @return false: because no more data to be read
  */
 bool adcraw_read(lv_indev_drv_t * drv, lv_indev_data_t * data)
 {
@@ -319,7 +318,5 @@ bool adcraw_read(lv_indev_drv_t * drv, lv_indev_data_t * data)
 		data->point.y = last_y;
 		data->state = LV_INDEV_STATE_REL;
 	}
-
-	return false;
 }
 #endif //CONFIG_LV_TOUCH_CONTROLLER_ADCRAW

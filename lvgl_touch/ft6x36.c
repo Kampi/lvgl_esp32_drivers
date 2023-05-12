@@ -103,9 +103,8 @@ void ft6x06_init(uint16_t dev_addr) {
   * @brief  Get the touch screen X and Y positions values. Ignores multi touch
   * @param  drv:
   * @param  data: Store data here
-  * @retval Always false
   */
-bool ft6x36_read(lv_indev_drv_t *drv, lv_indev_data_t *data) {
+void ft6x36_read(lv_indev_drv_t *drv, lv_indev_data_t *data) {
     if (!ft6x36_status.inited) {
         ESP_LOGE(TAG, "Init first!");
         return 0x00;
@@ -129,7 +128,6 @@ bool ft6x36_read(lv_indev_drv_t *drv, lv_indev_data_t *data) {
         data->point.x = touch_inputs.last_x;
         data->point.y = touch_inputs.last_y;
         data->state = touch_inputs.current_state;
-        return false;
     }
 
     touch_inputs.current_state = LV_INDEV_STATE_PR;
@@ -155,6 +153,4 @@ bool ft6x36_read(lv_indev_drv_t *drv, lv_indev_data_t *data) {
 #if CONFIG_LV_FT6X36_COORDINATES_QUEUE
     xQueueOverwrite( ft6x36_touch_queue_handle, &touch_inputs );
 #endif
-
-    return false;
 }

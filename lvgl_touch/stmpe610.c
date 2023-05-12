@@ -110,7 +110,6 @@ void stmpe610_init(void)
 /**
  * Get the current position and state of the touchpad
  * @param data store the read data here
- * @return false: because no more data to be read
  */
 bool stmpe610_read(lv_indev_drv_t * drv, lv_indev_data_t * data)
 {
@@ -157,10 +156,7 @@ bool stmpe610_read(lv_indev_drv_t * drv, lv_indev_data_t * data)
     data->point.x = (int16_t) x;
     data->point.y = (int16_t) y;
     data->state = valid == false ? LV_INDEV_STATE_REL : LV_INDEV_STATE_PR;
-
-    return false;
 }
-
 
 /**********************
  *   STATIC FUNCTIONS
@@ -174,7 +170,6 @@ static void write_8bit_reg(uint8_t reg, uint8_t val)
 	tp_spi_write_reg(data_send, 2);
 }
 
-
 static uint16_t read_16bit_reg(uint8_t reg)
 {
 	uint8_t data_recv[2];
@@ -183,7 +178,6 @@ static uint16_t read_16bit_reg(uint8_t reg)
 	
 	return data_recv[0] << 8 | data_recv[1];
 }
-
 
 static uint8_t read_8bit_reg(uint8_t reg)
 {	
@@ -194,7 +188,6 @@ static uint8_t read_8bit_reg(uint8_t reg)
 	return data_recv;
 }
 
-
 static void read_data(int16_t *x, int16_t *y, uint8_t *z)
 {
 	*x = read_16bit_reg(STMPE_TSC_DATA_X);
@@ -202,12 +195,10 @@ static void read_data(int16_t *x, int16_t *y, uint8_t *z)
 	*z = read_8bit_reg(STMPE_TSC_DATA_Z);
 }
 
-
 static bool buffer_empty()
 {
 	return ((read_8bit_reg(STMPE_FIFO_STA) & STMPE_FIFO_STA_EMPTY) == STMPE_FIFO_STA_EMPTY);
 }
-
 
 static void adjust_data(int16_t * x, int16_t * y)
 {
@@ -237,6 +228,4 @@ static void adjust_data(int16_t * x, int16_t * y)
 #if STMPE610_Y_INV != 0
     (*y) =  LV_VER_RES - (*y);
 #endif
-
 }
-

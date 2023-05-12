@@ -37,41 +37,41 @@
 extern "C" {
 #endif
 
-#define FT6236_I2C_SLAVE_ADDR   0x38
+#define FT6236_I2C_SLAVE_ADDR             0x38
 
 /* Maximum border values of the touchscreen pad that the chip can handle */
-#define  FT6X36_MAX_WIDTH              ((uint16_t)800)
-#define  FT6X36_MAX_HEIGHT             ((uint16_t)480)
+#define FT6X36_MAX_WIDTH                  ((uint16_t)800)
+#define FT6X36_MAX_HEIGHT                 ((uint16_t)480)
 
 /* Max detectable simultaneous touch points */
-#define FT6X36_MAX_TOUCH_PNTS     2
+#define FT6X36_MAX_TOUCH_PNTS             2
 
 /* Register of the current mode */
-#define FT6X36_DEV_MODE_REG             0x00
+#define FT6X36_DEV_MODE_REG               0x00
 
 /* Possible modes as of FT6X36_DEV_MODE_REG */
-#define FT6X36_DEV_MODE_WORKING         0x00
-#define FT6X36_DEV_MODE_FACTORY         0x04
+#define FT6X36_DEV_MODE_WORKING           0x00
+#define FT6X36_DEV_MODE_FACTORY           0x04
 
-#define FT6X36_DEV_MODE_MASK            0x70
-#define FT6X36_DEV_MODE_SHIFT           4
+#define FT6X36_DEV_MODE_MASK              0x70
+#define FT6X36_DEV_MODE_SHIFT             4
 
 /* Gesture ID register */
-#define FT6X36_GEST_ID_REG              0x01
+#define FT6X36_GEST_ID_REG                0x01
 
 /* Possible values returned by FT6X36_GEST_ID_REG */
-#define FT6X36_GEST_ID_NO_GESTURE       0x00
-#define FT6X36_GEST_ID_MOVE_UP          0x10
-#define FT6X36_GEST_ID_MOVE_RIGHT       0x14
-#define FT6X36_GEST_ID_MOVE_DOWN        0x18
-#define FT6X36_GEST_ID_MOVE_LEFT        0x1C
-#define FT6X36_GEST_ID_ZOOM_IN          0x48
-#define FT6X36_GEST_ID_ZOOM_OUT         0x49
+#define FT6X36_GEST_ID_NO_GESTURE         0x00
+#define FT6X36_GEST_ID_MOVE_UP            0x10
+#define FT6X36_GEST_ID_MOVE_RIGHT         0x14
+#define FT6X36_GEST_ID_MOVE_DOWN          0x18
+#define FT6X36_GEST_ID_MOVE_LEFT          0x1C
+#define FT6X36_GEST_ID_ZOOM_IN            0x48
+#define FT6X36_GEST_ID_ZOOM_OUT           0x49
 
 /* Status register: stores number of active touch points (0, 1, 2) */
-#define FT6X36_TD_STAT_REG              0x02
-#define FT6X36_TD_STAT_MASK             0x0F
-#define FT6X36_TD_STAT_SHIFT            0x00
+#define FT6X36_TD_STAT_REG                0x02
+#define FT6X36_TD_STAT_MASK               0x0F
+#define FT6X36_TD_STAT_SHIFT              0x00
 
 /* Touch events */
 #define FT6X36_TOUCH_EVT_FLAG_PRESS_DOWN 0x00
@@ -172,9 +172,8 @@ uint8_t ft6x36_get_gesture_id();
   * @brief  Get the touch screen X and Y positions values. Ignores multi touch
   * @param  drv:
   * @param  data: Store data here
-  * @retval Always false
   */
-bool ft6x36_read(lv_indev_drv_t *drv, lv_indev_data_t *data);
+void ft6x36_read(lv_indev_drv_t *drv, lv_indev_data_t *data);
 
 #ifdef __cplusplus
 }

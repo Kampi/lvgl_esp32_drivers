@@ -51,11 +51,11 @@ extern "C" {
 #define GT911_VENDOR_ID               0x814A
 
 #define GT911_STATUS_REG              0x814E
-#define   GT911_STATUS_REG_BUF        0x80
-#define   GT911_STATUS_REG_LARGE      0x40
-#define   GT911_STATUS_REG_PROX_VALID 0x20
-#define   GT911_STATUS_REG_HAVEKEY    0x10
-#define   GT911_STATUS_REG_PT_MASK    0x0F
+#define GT911_STATUS_REG_BUF          0x80
+#define GT911_STATUS_REG_LARGE        0x40
+#define GT911_STATUS_REG_PROX_VALID   0x20
+#define GT911_STATUS_REG_HAVEKEY      0x10
+#define GT911_STATUS_REG_PT_MASK      0x0F
 
 #define GT911_TRACK_ID1               0x814F
 #define GT911_PT1_X_COORD_L           0x8150
@@ -84,9 +84,8 @@ void gt911_init(uint8_t dev_addr);
   * @brief  Get the touch screen X and Y positions values. Ignores multi touch
   * @param  drv:
   * @param  data: Store data here
-  * @retval Always false
   */
-bool gt911_read(lv_indev_drv_t *drv, lv_indev_data_t *data);
+void gt911_read(lv_indev_drv_t *drv, lv_indev_data_t *data);
 
 #ifdef __cplusplus
 }

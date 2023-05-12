@@ -88,9 +88,8 @@ void gt911_init(uint8_t dev_addr) {
   * @brief  Get the touch screen X and Y positions values. Ignores multi touch
   * @param  drv:
   * @param  data: Store data here
-  * @retval Always false
   */
-bool gt911_read(lv_indev_drv_t *drv, lv_indev_data_t *data) {
+void gt911_read(lv_indev_drv_t *drv, lv_indev_data_t *data) {
     uint8_t touch_pnt_cnt;        // Number of detected touch points
     static int16_t last_x = 0;  // 12bit pixel value
     static int16_t last_y = 0;  // 12bit pixel value
@@ -108,7 +107,6 @@ bool gt911_read(lv_indev_drv_t *drv, lv_indev_data_t *data) {
         data->point.x = last_x;
         data->point.y = last_y;
         data->state = LV_INDEV_STATE_REL;
-        return false;
     }
 
 //    gt911_i2c_read(gt911_status.i2c_dev_addr, GT911_TRACK_ID1, &data_buf, 1);
@@ -140,5 +138,4 @@ bool gt911_read(lv_indev_drv_t *drv, lv_indev_data_t *data) {
     data->state = LV_INDEV_STATE_PR;
     ESP_LOGI(TAG, "X=%u Y=%u", data->point.x, data->point.y);
     ESP_LOGV(TAG, "X=%u Y=%u", data->point.x, data->point.y);
-    return false;
 }
